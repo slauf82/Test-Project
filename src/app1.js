@@ -1,8 +1,14 @@
 import React from 'react';
-//import ReactDOM from 'react-dom';
 
+/**
+ * @description App1 soll zeigen, wie auf Ereignisse mit einem Buttonklick reagiert werden kann
+ */
 export class App1 extends React.Component
 {
+	/**
+	 * @constructor Konstruktor der Klasse
+	 * @param {*} props die Eigenschaften der Klasse
+	 */
 	constructor(props)
 	{
 		super(props);
@@ -14,16 +20,26 @@ export class App1 extends React.Component
 		}
 	}
 
+	/**
+	 * @description inkrementiert den Wert von 'count' um 1
+	 */
 	incCount = () =>
 	{
 		this.setState(prevState => {return {count: prevState.count + 1}});
 	}
 
+	/**
+	 * @description setzt den Wert von 'count' auf 0 zurück
+	 */
 	incReset = () =>
 	{
 		this.setState({count: 0});
 	}
 
+	/**
+	 * @description die Renderingfunktion der Klasse
+	 * @returns gibt ein Label mit der aktuellen Zählung, einen Button zum Inkremetieren und einen Button zum Rücksetzen zurück
+	 */
 	render() {
 		const { buttonCSSStyle, labelCSSStyle } = this.state;
 		return (
@@ -36,4 +52,7 @@ export class App1 extends React.Component
 	}
 }
 
+/**
+ * eine Exportoption für die Klasse App1, um diese nach Außen sichtbar zu machen
+ */
 export default App1;

@@ -1,7 +1,10 @@
 import React from 'react';
 //import ReactDOM from 'react-dom';
 
-export class App1 extends React.Component
+/**
+ * @description im Moment nur Platzhalter mit der App App1
+ */
+export class App5 extends React.Component
 {
 	constructor(props)
 	{
@@ -36,4 +39,4 @@ export class App1 extends React.Component
 	}
 }
 
-export default App1;
+export default App5;

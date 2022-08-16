@@ -1,11 +1,18 @@
 import React from 'react';
-//import ReactDOM from 'react-dom';
 import ProgressBar from "@ramonak/react-progress-bar";
 import CountUp from 'react-countup';
 import Slider from 'react-input-slider';
 
+/**
+ * @description Hier soll über einen Slider ein neues Maximum eingestellt werden können, was dann bei einem neuen Durchlauf berücksichtigt wird. 
+ * Dabei soll gezeigt werden, dass Durchlauf und Maximumeinstellung unabhängig voneinander sind.
+ */
 export class App4 extends React.Component
 {
+	/**
+	 * Der Konstruktoor zur App App4
+	 * @param {*} props die Eigenschaften zur App App4
+	 */
 	constructor(props)
 	{
 		super(props);
@@ -26,6 +33,10 @@ export class App4 extends React.Component
 		}
 	}		
 
+	/**
+	 * @description sofern sich der Slider geändert hat, wird diese Funktion aktiv
+	 * @param {*} slider ein Sliderobjekt mit den neuen Slider-Werten
+	 */
 	sliderChange = (slider) =>
 	{
 		this.setState({x: slider.x});
@@ -35,7 +46,11 @@ export class App4 extends React.Component
 			this.setState({now: 0});
 		}
 	}
-
+	
+	/**
+	 * @description Resetfunktion des Sliders auf Standardwerte, der bei Buttonklick auf Reset aktiv wird beim nächsten Durchlauf
+	 * es gibt auch eine direkte Resetoption als Eigenschaft des Sliders, wird diese genutzt, wird der Slider ohne Durchlauf direkt zurückgesetzt
+	 */
 	reset = () =>
 	{
 		this.setState({now: 1000});
@@ -44,6 +59,10 @@ export class App4 extends React.Component
 		this.setState({reset: true});
 	}
 
+	/**
+	 * @description Funktion, die den automatischen Durchlauf steuert
+	 * @param {*} value der aktuelle Wert im Durchlauf
+	 */
 	formattingFn = (value) =>
 	{
 		if(value > this.state.start)
@@ -61,6 +80,10 @@ export class App4 extends React.Component
 		}
 	}
 
+	/**
+	 * @description Renderingfunktion, die die Darstellung der App App4 steuer
+	 * @returns gibt die Darstellung in HTML für die App App4 zurück
+	 */
 	render() {
 		const { buttonCSSStyle, labelCSSStyle, sliderCSSStyle, now, start, end, reset, duration, x, xmin, xmax, countUp} = this.state;
 		
@@ -108,4 +131,7 @@ export class App4 extends React.Component
 	}
 }
 
+/**
+ * @description Exportoption, um die App App4 sichtbar zu machen
+ */
 export default App4;

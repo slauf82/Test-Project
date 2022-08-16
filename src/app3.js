@@ -6,8 +6,15 @@ import { format } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 registerLocale('de', de);
 
+/**
+ * @description App3 soll eine Auswahl für einen Flugbuch enthalten und dann soll ein Datum eingegeben werden können. Das Datum ist auf korrekte Eingabe zu überprüfen.
+ */
 export class App3 extends React.Component
 {
+	/**
+	 * @constructor der Konstruktor für App3
+	 * @param {*} props die Eigenschaften zu App3
+	 */
 	constructor(props)
 	{
 		super(props);
@@ -31,6 +38,10 @@ export class App3 extends React.Component
 		}
 	}
 
+	/**
+	 * @description wenn eine Auswahl aus dem Auswahlfeld getroffen wurde, wird die Auswahl jetzt geprüft
+	 * @param {*} selectOption die getroffene Auswahl des Auswahlfeldes 
+	 */
 	onSelect = (selectOption) =>
 	{
 		if(selectOption.value === "")
@@ -55,17 +66,29 @@ export class App3 extends React.Component
 		}
 		this.setState({selectedValue: selectOption});
 	}
-
+	
+	/**
+	 * @description Prüfung auf die deutsche Datumsangabe in der Form dd.MM.yyyy
+	 * @returns das RegExp-Objekt für diese Prüfung
+	 */
 	getRegExpValidDate = () =>
 	{
 		return new RegExp("^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$");
 	}
 	
+	/**
+	 * @description Prüfung auf die britisch-englischen Datumsangabe in der Form dd/MM/yyyy oder auch der us-amerikanischen Datumsangabe MM/dd/yyyy
+	 * @returns das RegExp-Objekt für diese Prüfung
+	 */
 	getRegExpValidEnglishDate = () =>
 	{
 		return new RegExp("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$");
 	}
 
+	/**
+	 * @description wenn das Startdatum im Eingabefeld geändert wird, dann wird diese Funktion aktiv
+	 * @param {*} date das geänderte Startdatum aus dem Eingabefeld
+	 */
 	datepickerInputFlightStartChange = (date) =>
 	{
 		alert(this.getRegExpValidDate().test(format(date, 'dd.MM.yyyy')));
@@ -89,6 +112,10 @@ export class App3 extends React.Component
 		alert(this.state.datepickerCSSStyle.color);
 	}
 
+	/**
+	 * @description wenn das Zieldatum im Eingabefeld geändert wird, dann wird diese Funktion aktiv
+	 * @param {*} date das geänderte Zieldatum im Eingabefeld
+	 */
 	datepickerInputFlightEndChange = (date) =>
 	{
 		if(this.getRegExpValidDate().test(format(date, 'dd.MM.yyyy')))
@@ -109,16 +136,27 @@ export class App3 extends React.Component
 		this.setState({valueFlightEnd: date});
 	}
 
+	/**
+	 * @description wenn im Starteingabefeld das Datum aus dem aufgeklappten Kalender gewählt wird, das Datumsformat wird automatisch erkannt
+	 * @param {*} date das Startdatum, welches nach Auswahl eines Datums aus dem aufgeklappten Kalender ergibt
+	 */
 	datepickerFlightStartChange = (date) =>
 	{
         this.setState({valueFlightStart: date});
 	}
 
+	/**
+	 * @description wenn im Zieleingabefeld das Datum aus dem aufgeklappten Kalender gewählt wird, das Datumsformat wird automatisch erkannt
+	 * @param {*} date das Zieldatum, welches nach Auswahl eines Datums aus dem aufgeklappten Kalender ergibt
+	 */
 	datepickerFlightEndChange = (date) =>
 	{
 		this.setState({valueFlightEnd: date});
 	}
 
+	/**
+	 * @description wenn der Flug via Button dann bestätigt wird, gibt es die Bestätigung via Alert-Meldung
+	 */
 	bookFlight = () =>
 	{
 		if(this.state.selectedValue.value === "one-way-flight")
@@ -135,11 +173,10 @@ export class App3 extends React.Component
 		}
 	}
 
-	getFormattedDate = (date) =>
-	{
-		return date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear();
-	}
-
+	/**
+	 * @description Die Renderingfunktion für die App3
+	 * @returns die Darstellung in HTML für die App App3
+	 */
 	render() {
 		let {
 			selectCSSStyle,
@@ -155,24 +192,6 @@ export class App3 extends React.Component
 		const datepickerFlightStartChange = this.datepickerFlightStartChange.bind(this);
 		const datepickerFlightEndChange = this.datepickerFlightEndChange.bind(this);
 		
-		/*
-		const Control = ({ children, ...props }) => (
-  			<components.Control {...props}>
-    			{children}
-  			</components.Control>
-		);
-
-		const GoodSelect = props => <Select {...props} components={{ Control }} />
-		<DatePicker disabled={this.state.datepickerFlightStartEnabled} locale="de" style={datepickerCSSStyle} dateFormat="dd.MM.yyyy" onChange={this.datepickerInputFlightStartChange.bind(this)} onSelect={this.datepickerFlightStartChange.bind(this)} selected={valueFlightStart}></DatePicker>  
-		<br/>
-		<DatePicker disabled={this.state.datepickerFlightEndEnabled} locale="de" style={datepickerCSSStyle} dateFormat="dd.MM.yyyy" onChange={this.datepickerInputFlightEndChange.bind(this)} onSelect={this.datepickerFlightEndChange.bind(this)} selected={valueFlightEnd}></DatePicker>  
-		
-		<input type="date" placeholder={valueFlightStart} onChange={this.datepickerInputFlightStartChange.bind(this)}></input>
-		<br/>
-		<input type="date" placeholder={valueFlightEnd} onChange={this.datepickerInputFlightEndChange.bind(this)}></input>
-				
-		*/
-
 		return (
 		    <div>
 				<Select style={selectCSSStyle} placeholder="Please select an option" onChange={this.onSelect.bind(this)} value={selectedValue} options={selectOptions}></Select>
@@ -187,4 +206,7 @@ export class App3 extends React.Component
 	}
 }
 
+/**
+ * @description Exportoption, um die App App3 sichtbar zu machen
+ */
 export default App3;
